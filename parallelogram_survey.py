@@ -11,6 +11,9 @@ point3 = (230, 10)
 point4 = (70, 290)
 pts = np.array([point1, point3, point2, point4])
 
+## parameter
+spacing = 10  # distance between paths
+
 def distance(p1,p2):
     return np.linalg.norm(np.array([p2[0], p1[1]])-np.array([p1[0], p1[1]]))
 
@@ -33,7 +36,7 @@ def calcPointInLineWithY(p1,p2,y):
 
 # survey calc
 dist = distance(point1,point2)
-lines = dist/20
+lines = dist/spacing
 step_x = (point1[0]-point2[0])/lines
 
 print dist, lines, step_x
