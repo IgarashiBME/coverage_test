@@ -91,7 +91,6 @@ print xLines
 
 ## Traversing each x Line
 line = []
-k =1
 for i in range(xLines["lines"]):
     ## Traversing each polygon vertex
     for j in range(len(pts)):
@@ -107,9 +106,24 @@ line = line.reshape(line.shape[0]/2, 2)
 line = line.astype(np.int)
 print line
 
+path = []
+for i in range(line.shape[0] -1):
+    if (i+4) % 4 == 3:
+        path = np.append(path, line[i-1])            
+    elif (i+4) % 4 == 2:
+        path = np.append(path, line[i+1])
+    elif (i+4) % 4 == 1:
+        path = np.append(path, line[i])
+    else:
+        path = np.append(path, line[i])
+    print i, path
+path = path.reshape(path.shape[0]/2, 2)
+path = path.astype(np.int)
+print path
+
 img = np.full((300,300,3), 128, dtype=np.uint8)
 cv2.polylines(img, [pts], True, (255,0,0), 1)
-cv2.polylines(img, [line], False, (0,0,255), 2)
+cv2.polylines(img, [path], False, (0,0,255), 2)
 
 cv2.imshow('', img)
 k = cv2.waitKey(0)
